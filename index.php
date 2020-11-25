@@ -39,3 +39,16 @@ $baseURL = 'https://' . $_SERVER['SERVER_NAME']
 // Start a session so we have a place to
 // store things between redirects
 session_start();
+// If there is an access token in the session
+// the user is already logged in
+if(!isset($_GET['action'])) {
+  if(!empty($_SESSION['access_token'])) {
+    echo '<h3>Logged In</h3>';
+    echo '<p><a href="?action=repos">View Repos</a></p>';
+    echo '<p><a href="?action=logout">Log Out</a></p>';
+  } else {
+    echo '<h3>Not logged in</h3>';
+    echo '<p><a href="?action=login">Log In</a></p>';
+  }
+  die();
+}
